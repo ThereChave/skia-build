@@ -35,7 +35,11 @@ def main():
     'skia_use_system_harfbuzz=false',
     'skia_pdf_subset_harfbuzz=true',
     'skia_use_system_icu=false',
-    'skia_enable_skottie=true'
+    'skia_enable_skottie=true',
+    'skia_use_webgl=false',
+    'skia_use_gl=false',
+    'skia_enable_gpu=false',
+    'skia_use_harfbuzz',
   ]
 
   if 'macos' == target or isIos or isTvos:
@@ -119,9 +123,6 @@ def main():
         'skia_enable_fontmgr_custom_directory=false',
         'skia_enable_fontmgr_custom_embedded=true',
         'skia_enable_fontmgr_custom_empty=false',
-        'skia_use_webgl=false',
-        'skia_use_gl=false',
-        'skia_enable_gpu=false',
         'skia_enable_svg=true', # other targets have this set in skia.gni
         'skia_use_expat=true',   # other targets have this set in skia.gni
     ]
