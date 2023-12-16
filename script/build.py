@@ -78,9 +78,16 @@ def main():
         ]
   elif 'windows' == target:
     args += [
-      'skia_use_direct3d=true',
-      'extra_cflags=["-DSK_FONT_HOST_USE_SYSTEM_SETTINGS"]',
+      'skia_use_direct3d=false',
     ]
+    if build_type == 'Debug':
+    	args += [
+      	'extra_cflags=["-DSK_FONT_HOST_USE_SYSTEM_SETTINGS", "/D_DEBUG", "/Od", "/MDd"]',
+    	]
+    else:
+      args += [
+      	'extra_cflags=["-DSK_FONT_HOST_USE_SYSTEM_SETTINGS", "/MD"]',
+    	]
   elif 'android' == target:
     args += [
       'ndk="'+ ndk + '"'
@@ -112,13 +119,11 @@ def main():
         'skia_enable_fontmgr_custom_directory=false',
         'skia_enable_fontmgr_custom_embedded=true',
         'skia_enable_fontmgr_custom_empty=false',
-        'skia_use_webgl=true',
-        'skia_gl_standard="webgl"',
-        'skia_use_gl=true',
-        'skia_enable_gpu=true',
+        'skia_use_webgl=false',
+        'skia_use_gl=false',
+        'skia_enable_gpu=false',
         'skia_enable_svg=true', # other targets have this set in skia.gni
         'skia_use_expat=true',   # other targets have this set in skia.gni
-        'extra_cflags=["-DSK_SUPPORT_GPU=1", "-DSK_GL", "-DSK_DISABLE_LEGACY_SHADERCONTEXT"]'
     ]
 
   if 'linux' == host and 'arm64' == host_machine:
