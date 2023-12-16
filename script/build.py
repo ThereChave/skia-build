@@ -39,7 +39,7 @@ def main():
     'skia_use_webgl=false',
     'skia_use_gl=false',
     'skia_enable_gpu=false',
-    'skia_use_harfbuzz',
+    'skia_use_harfbuzz=false',
   ]
 
   if 'macos' == target or isIos or isTvos:
