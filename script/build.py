@@ -90,7 +90,7 @@ def main():
     	]
     else:
       args += [
-      	'extra_cflags=["-DSK_FONT_HOST_USE_SYSTEM_SETTINGS", "/MD"]',
+      	'extra_cflags=["-DSK_FONT_HOST_USE_SYSTEM_SETTINGS", "/MD", "/O2"]',
     	]
   elif 'android' == target:
     args += [
