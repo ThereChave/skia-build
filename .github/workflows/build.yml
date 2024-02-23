@@ -16,6 +16,30 @@ env:
   version: m116-51072f3-1
 
 jobs:
+  linux:
+    runs-on: ubuntu-16.04
+    strategy:
+      matrix:
+        build_type: [Release, Debug]
+      fail-fast: false
+    steps:
+      - uses: actions/checkout@v2
+      - run: sudo ./script/prepare_linux.sh
+      - run: python3 script/check_release.py --version ${{ env.version }} --build-type ${{ matrix.build_type }}
+        if: ${{ github.event.inputs.skip_release != 'true' }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - run: PATH=/usr/lib/binutils-2.26/bin:$PATH python3 script/checkout.py --version ${{ env.version }}
+      - run: PATH=/usr/lib/binutils-2.26/bin:$PATH python3 script/build.py --build-type ${{ matrix.build_type }}
+      - run: PATH=/usr/lib/binutils-2.26/bin:$PATH python3 script/archive.py --version ${{ env.version }} --build-type ${{ matrix.build_type }}
+      - uses: actions/upload-artifact@v2
+        with:
+          name: Skia-${{ env.version }}-linux-${{ matrix.build_type }}-x64.zip
+          path: '*.zip'
+      - run: python3 script/release.py --version ${{ env.version }} --build-type ${{ matrix.build_type }}
+        if: ${{ github.event.inputs.skip_release != 'true' }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.TOKEN }}
   windows:
     runs-on: windows-2019
     strategy:
