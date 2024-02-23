@@ -17,7 +17,7 @@ env:
 
 jobs:
   linux:
-    runs-on: ubuntu-16.04
+    runs-on: ubuntu-18.04
     strategy:
       matrix:
         build_type: [Release, Debug]
