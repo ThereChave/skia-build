@@ -39,7 +39,8 @@ def main():
     'skia_use_system_icu=false',
     'skia_enable_skottie=false',
     'skia_use_fontconfig=false',
-    'skia_use_egl=true'
+    'skia_use_gl=true',
+    'skia_enable_gpu=true'
   ]
 
   if 'macos' == target or isIos or isTvos:
@@ -82,7 +83,7 @@ def main():
         ]
   elif 'windows' == target:
     args += [
-      'skia_use_direct3d=false',
+      'skia_use_direct3d=true',
     ]
     if build_type == 'Debug':
     	args += [
